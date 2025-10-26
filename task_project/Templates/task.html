@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block style %}
+   <style>
+form {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+label {display: block;}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+</style> 
+<style>
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+{% endblock style %}
+    
+{% block body %}
+    <body>
+
+<h2>Style an HTML Form with CSS</h2>
+
+<form action="" method='POST'>
+    {% csrf_token %}
+  <label for="fname"> task_name</label>
+  <input type="text" id="fname" name="task_name" placeholder="Your task_name..">
+
+  <label for="lname">task_description </label>
+  <input type="text" id="lname" name="task_description" placeholder="task_description..">
+
+  <label for="lname">task_status</label>
+  <select name="task_status" id="">
+    <option value="">---select--</option>
+    <option value="NotStarted">NotStarted</option>
+    <option value="Inprogress">Inprogress</option>
+    <option value="completed">completed</option>
+  </select>
+
+   <label for="lname">deadline </label>
+  <input type="date" id="lname" name="deadline" placeholder="deadline.."> 
+
+  <input type="submit" value="Submit">
+</form>
+<table>
+  <tr>
+    <th>task_name</th>
+    <th>task_description</th>
+    <th>task_status</th>
+    <th>deadline</th>
+    <th>created_by</th>
+    <th>action</th>
+   
+  </tr>
+  
+  {% for i in task %}
+
+  <tr>
+    <td>{{i.task_name}}</td>
+    <td>{{i.task_description}}</td>
+     <td>{{i.task_status}}</td> 
+    <td>{{i.deadline}}</td>
+   
+    
+    <td>{{i.created_by}} </td> 
+    <td>
+        <a href="{% url 'editurl' i.id %}">edit</a>
+        <a href="{% url 'deleteurl' i.id %}">delete</a>
+
+    </td>
+  </tr>
+   {% endfor %}
+
+
+
+</table>
+
+</body>
+{% endblock body %}
+    
