@@ -47,7 +47,7 @@ def loginpage(req):
         password = req.POST.get('password')
 
         user = authenticate(req, username=user_name, password=password)
-        print("user: ", user)
+  
         if user:
             login(req, user)
             return redirect("taskurl") 
@@ -104,4 +104,5 @@ def editpage(req,id):
 def deletepage(req,id):
     taskmodel.objects.get(id=id).delete()
     return redirect("taskurl")
+
     
